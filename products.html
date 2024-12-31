@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>產品介紹 - 我的公司</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .product {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .product.visible {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -26,7 +35,7 @@
         <h2>產品介紹</h2>
         <div class="product-container">
             <div class="product">
-                <img src="https://via.placeholder.com/150" alt="產品1">
+                <img src="https://raw.githubusercontent.com/boatman3132/RadarHomePage/refs/heads/main/img/101990884_preview-07_1.webp" alt="產品1">
                 <h3>產品一</h3>
                 <p>這是產品一的簡要介紹。</p>
             </div>
@@ -46,5 +55,16 @@
     <footer>
         <p>© 2024 我的公司. 版權所有。</p>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const products = document.querySelectorAll('.product');
+            products.forEach((product, index) => {
+                setTimeout(() => {
+                    product.classList.add('visible');
+                }, index * 250); // 每個產品延遲0.5秒顯示
+            });
+        });
+    </script>
 </body>
 </html>
