@@ -7,19 +7,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    
     <!-- Header -->
-    <header>
-        <div class="logo">我的公司</div>
-        <nav>
-            <ul>
-                <li><a href="index.html">首頁</a></li>
-                <li><a href="products.html">產品介紹</a></li>
-                <li><a href="services.html">服務項目</a></li>
-                <li><a href="about.html">關於我們</a></li>
-                <li><a href="contact.html">聯絡我們</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div id="header-placeholder"></div>
+
 
     <!-- Services Section -->
     <section id="services">
@@ -39,9 +30,20 @@
             </div>
         </div>
     </section>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
-    <footer>
-        <p>© 2024 我的公司. 版權所有。</p>
-    </footer>
+    <script>
+        function loadHTML(elementId, url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                });
+        }
+
+        loadHTML('header-placeholder', 'header.html');
+        loadHTML('footer-placeholder', 'footer.html');
+    </script>
 </body>
 </html>

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>產品介紹 - 我的公司</title>
+    <title>產品介紹 - 璿機科技</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .product {
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.5s ease-in-out;
         }
         .product.visible {
             opacity: 1;
@@ -17,18 +17,7 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="logo">我的公司</div>
-        <nav>
-            <ul>
-                <li><a href="index.html">首頁</a></li>
-                <li><a href="products.html">產品介紹</a></li>
-                <li><a href="services.html">服務項目</a></li>
-                <li><a href="about.html">關於我們</a></li>
-                <li><a href="contact.html">聯絡我們</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div id="header-placeholder"></div>
 
     <!-- Products Section -->
     <section id="products">
@@ -40,29 +29,38 @@
                 <p>這是產品一的簡要介紹。</p>
             </div>
             <div class="product">
-                <img src="https://via.placeholder.com/150" alt="產品2">
+                <img src="https://raw.githubusercontent.com/boatman3132/RadarHomePage/refs/heads/main/img/HLK-LD1115H-24G_3.png" alt="產品2">
                 <h3>產品二</h3>
                 <p>這是產品二的簡要介紹。</p>
             </div>
             <div class="product">
-                <img src="https://via.placeholder.com/150" alt="產品3">
+                <img src="https://raw.githubusercontent.com/boatman3132/RadarHomePage/refs/heads/main/img/Product-gray-background-for-PR-1-edited-scaled-1-1024x768.webp" alt="產品3">
                 <h3>產品三</h3>
                 <p>這是產品三的簡要介紹。</p>
             </div>
         </div>
     </section>
 
-    <footer>
-        <p>© 2024 我的公司. 版權所有。</p>
-    </footer>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
     <script>
+        function loadHTML(elementId, url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                });
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
+            loadHTML('header-placeholder', 'header.html');
+            loadHTML('footer-placeholder', 'footer.html');
             const products = document.querySelectorAll('.product');
             products.forEach((product, index) => {
                 setTimeout(() => {
                     product.classList.add('visible');
-                }, index * 250); // 每個產品延遲0.5秒顯示
+                }, index * 250); // 每個產品延遲0.25秒顯示
             });
         });
     </script>
