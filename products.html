@@ -1,243 +1,353 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>產品介紹 - 璿機科技</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .product {
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            display: none; /* 隱藏產品，直到被篩選出來 */
-            /* 移除 display: flex; */
-            /* 使用 flex 佈局，僅在 .visible 時設置 */
+        /* 全局樣式 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
-        .product.visible {
-            opacity: 1;
-            display: flex; /* 顯示被篩選的產品 */
-            align-items: center; /* 垂直置中 */
+
+        /* 頁首樣式：保留原有的「header-placeholder」以便載入 header.html */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
-        .product-image {
-            margin-right: 20px; /* 圖片與文字之間的間距 */
+
+        /* 主內容容器使用 Flexbox */
+        .main-container {
+            display: flex;
+            margin-top: 80px; /* 頁首高度的間距 */
+            padding: 20px;
         }
+
+        /* 側邊欄樣式 */
         .sidebar {
-            float: left;
-            width: 200px;
-            margin-right: 20px;
+            width: 250px;
             background-color: #6060b3;
             color: white;
-            padding: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            box-sizing: border-box;
+            flex-shrink: 0;
         }
+
+        .sidebar h3 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            border-bottom: 1px dashed #ccc;
+            padding: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar ul li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 產品展示區 */
+        .product-section {
+            flex: 1;
+            padding-left: 20px;
+        }
+
+        .product-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* 產品容器使用 CSS Grid 佈局 */
         .product-container {
-            margin-left: 220px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 調整為三列 */
+            gap: 20px;
+        }
+
+        /* 單個產品的基本樣式 */
+        .product {
+            display: none;                /* 初始為隱藏，避免空白 */
+            background-color: #f9f9f9; /* 背景色 */
+            border: 1px solid #ddd;    /* 邊框 */
+            border-radius: 8px;        /* 圓角 */
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 陰影效果 */
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 被篩選後要顯示的產品 */
+        .product.visible {
+            display: flex;            /* 切換為 Flex 以顯示卡片 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 增強陰影效果 */
+        }
+
+        /* 產品圖片的樣式 */
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        /* 產品文字區域的樣式 */
+        .product-text {
+            margin-top: 10px;
+            text-align: left; /* 靠左對齊產品介紹文字 */
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .product-section {
+                padding-left: 0;
+            }
+
+            .product-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
         }
 
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <div id="header-placeholder"></div>
+    <!-- Header：保留原有的 header-placeholder 以便 loadHTML() 載入 -->
+    <header id="header-placeholder"></header>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h3 style="margin-bottom: 10px;">產品目錄</h3>
-        <ul style="list-style-type: none; padding: 0;">
-            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('all')">顯示全部</li>
-            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('U')">U系列 無人機避障與防地飛行</li>
-            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('V')">V系列 汽車雷達</li>
-            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('R')">R系列 機器人避障雷達</li>
-            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('I')">I系列 智慧交通雷達</li>
-            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('H')">H系列 室內人員檢測雷達</li>
-        </ul>
+    <!-- 主內容容器 -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>產品目錄</h3>
+            <ul>
+                <li onclick="filterProducts('all')">顯示全部</li>
+                <li onclick="filterProducts('U')">U系列 無人機避障與防地飛行</li>
+                <li onclick="filterProducts('V')">V系列 汽車雷達</li>
+                <li onclick="filterProducts('R')">R系列 機器人避障雷達</li>
+                <li onclick="filterProducts('I')">I系列 智慧交通雷達</li>
+                <li onclick="filterProducts('H')">H系列 室內人員檢測雷達</li>
+            </ul>
+        </div>
+
+        <!-- Products Section -->
+        <section class="product-section" id="products">
+            <h2>產品介紹</h2>
+            <div class="product-container">
+                <!-- 產品列表 -->
+                <!-- Product: U20 -->
+                <div class="product U">
+                    <div class="product-image">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U20.png?raw=true" alt="U20">
+                    </div>
+                    <div class="product-text">
+                        <h3>U20</h3>
+                        <p>
+                            板卡尺寸：35*35mm<br>
+                            板卡質量：≤30g<br>
+                            測量範圍：1~20m<br>
+                            適用場景：無人機避障與防地飛行
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Product: U80 -->
+                <div class="product U">
+                    <div class="product-image">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U80.png?raw=true" alt="U80">
+                    </div>
+                    <div class="product-text">
+                        <h3>U80</h3>
+                        <p>
+                            板卡尺寸：50*50mm<br>
+                            板卡質量：≤70g<br>
+                            測量範圍：1~100m<br>
+                            適用場景：無人機避障與防地飛行
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Product: U100 -->
+                <div class="product U">
+                    <div class="product-image">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U100.png?raw=true" alt="U100">
+                    </div>
+                    <div class="product-text">
+                        <h3>U100</h3>
+                        <p>
+                            板卡尺寸：50*50mm<br>
+                            板卡質量：≤50g<br>
+                            測量範圍：1~100m<br>
+                            適用場景：無人機避障與防地飛行
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Product: VF160 -->
+                <div class="product V">
+                    <div class="product-image">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VF160.png?raw=true" alt="VF160">
+                    </div>
+                    <div class="product-text">
+                        <h3>VF160</h3>
+                        <p>
+                            板卡尺寸：95.6*77.2*21.6mm<br>
+                            板卡質量：≤200g<br>
+                            測量範圍：1~160m<br>
+                            適用場景：汽車前向避障雷達
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Product: VF200 -->
+                <div class="product V">
+                    <div class="product-image">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VF200.png?raw=true" alt="VF200">
+                    </div>
+                    <div class="product-text">
+                        <h3>VF200</h3>
+                        <p>
+                            板卡尺寸：95.6*77.2*21.6mm<br>
+                            板卡質量：≤200g<br>
+                            測量範圍：1~200m<br>
+                            適用場景：汽車前向避障雷達
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Product: VJ40 -->
+                <div class="product V">
+                    <div class="product-image">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VJ40.png?raw=true" alt="VJ40">
+                    </div>
+                    <div class="product-text">
+                        <h3>VJ40</h3>
+                        <p>
+                            板卡尺寸：91*66*15mm<br>
+                            板卡質量：≤200g<br>
+                            測量範圍：1~40m<br>
+                            適用場景：汽車角雷達
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Product: VJ80 -->
+                <div class="product V">
+                    <div class="product-image">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VJ80.png?raw=true" alt="VJ80">
+                    </div>
+                    <div class="product-text">
+                        <h3>VJ80</h3>
+                        <p>
+                            板卡尺寸：91*66*15mm<br>
+                            板卡質量：≤120g<br>
+                            測量範圍：1~80m<br>
+                            適用場景：汽車角雷達
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Product: R20 -->
+                <div class="product R">
+                    <div class="product-image">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/R20.png?raw=true" alt="R20">
+                    </div>
+                    <div class="product-text">
+                        <h3>R20</h3>
+                        <p>
+                            板卡尺寸：40*40mm<br>
+                            板卡質量：≤30g<br>
+                            測量範圍：1~20m<br>
+                            適用場景：機器人避障雷達
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Product: I260 -->
+                <div class="product I">
+                    <div class="product-image">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/I260.png?raw=true" alt="I260">
+                    </div>
+                    <div class="product-text">
+                        <h3>I260</h3>
+                        <p>
+                            板卡尺寸：204*187*49mm<br>
+                            板卡質量：≤1000g<br>
+                            測量範圍：0.5~260m<br>
+                            適用場景：智慧交通雷達
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Product: I500 -->
+                <div class="product I">
+                    <div class="product-image">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/I500.png?raw=true" alt="I500">
+                    </div>
+                    <div class="product-text">
+                        <h3>I500</h3>
+                        <p>
+                            板卡尺寸：204*187*49mm<br>
+                            板卡質量：≤1000g<br>
+                            測量範圍：0.5~500m<br>
+                            適用場景：智慧交通雷達
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Product: H10 -->
+                <div class="product H">
+                    <div class="product-image">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/H10.png?raw=true" alt="H10">
+                    </div>
+                    <div class="product-text">
+                        <h3>H10</h3>
+                        <p>
+                            板卡尺寸：50*50mm<br>
+                            板卡質量：≤50g<br>
+                            測量範圍：0.3~10m<br>
+                            適用場景：室內人員檢測雷達
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <!-- Products Section -->
-    <section id="products">
-        <h2>產品介紹</h2>
-        <div class="product-container">
-            <!-- Product: U20 -->
-            <div class="product U">
-                <div class="product-image">
-                    <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U20.png?raw=true" alt="U20">
-                </div>
-                <div class="product-text">
-                    <h3>U20</h3>
-                    <p>
-                        板卡尺寸：35*35mm<br>
-                        板卡質量：≤30g<br>
-                        測量範圍：1~20m<br>
-                        適用場景：無人機避障與防地飛行
-                    </p>
-                </div>
-            </div>
-
-            <!-- Product: U80 -->
-            <div class="product U">
-                <div class="product-image">
-                    <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U80.png?raw=true" alt="U80">
-                </div>
-                <div class="product-text">
-                    <h3>U80</h3>
-                    <p>
-                        板卡尺寸：50*50mm<br>
-                        板卡質量：≤70g<br>
-                        測量範圍：1~100m<br>
-                        適用場景：無人機避障與防地飛行
-                    </p>
-                </div>
-            </div>
-
-            <!-- Product: U100 -->
-            <div class="product U">
-                <div class="product-image">
-                    <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U100.png?raw=true" alt="U100">
-                </div>
-                <div class="product-text">
-                    <h3>U100</h3>
-                    <p>
-                        板卡尺寸：50*50mm<br>
-                        板卡質量：≤50g<br>
-                        測量範圍：1~100m<br>
-                        適用場景：無人機避障與防地飛行
-                    </p>
-                </div>
-            </div>
-
-            <!-- Product: VF160 -->
-            <div class="product V">
-                <div class="product-image">
-                    <img src="https://raw.githubusercontent.com/boatman3132/RadarHomePage/refs/heads/main/img/VF160.png" alt="VF160">
-                </div>
-                <div class="product-text">
-                    <h3>VF160</h3>
-                    <p>
-                        板卡尺寸：95.6*77.2*21.6mm<br>
-                        板卡質量：≤200g<br>
-                        測量範圍：1~160m<br>
-                        適用場景：汽車前向避障雷達
-                    </p>
-                </div>
-            </div>
-
-            <!-- Product: VF200 -->
-            <div class="product V">
-                <div class="product-image">
-                    <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VF200.png?raw=true" alt="VF200">
-                </div>
-                <div class="product-text">
-                    <h3>VF200</h3>
-                    <p>
-                        板卡尺寸：95.6*77.2*21.6mm<br>
-                        板卡質量：≤200g<br>
-                        測量範圍：1~200m<br>
-                        適用場景：汽車前向避障雷達
-                    </p>
-                </div>
-            </div>
-
-            <!-- Product: VJ40 -->
-            <div class="product V">
-                <div class="product-image">
-                    <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VJ40.png?raw=true" alt="VJ40">
-                </div>
-                <div class="product-text">
-                    <h3>VJ40</h3>
-                    <p>
-                        板卡尺寸：91*66*15mm<br>
-                        板卡質量：≤200g<br>
-                        測量範圍：1~40m<br>
-                        適用場景：汽車角雷達
-                    </p>
-                </div>
-            </div>
-
-            <!-- Product: VJ80 -->
-            <div class="product V">
-                <div class="product-image">
-                    <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VJ80.png?raw=true" alt="VJ80">
-                </div>
-                <div class="product-text">
-                    <h3>VJ80</h3>
-                    <p>
-                        板卡尺寸：91*66*15mm<br>
-                        板卡質量：≤120g<br>
-                        測量範圍：1~80m<br>
-                        適用場景：汽車角雷達
-                    </p>
-                </div>
-            </div>
-
-            <!-- Product: R20 -->
-            <div class="product R">
-                <div class="product-image">
-                    <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/R20.png?raw=true" alt="R20">
-                </div>
-                <div class="product-text">
-                    <h3>R20</h3>
-                    <p>
-                        板卡尺寸：40*40mm<br>
-                        板卡質量：≤30g<br>
-                        測量範圍：1~20m<br>
-                        適用場景：機器人避障雷達
-                    </p>
-                </div>
-            </div>
-
-            <!-- Product: I260 -->
-            <div class="product I">
-                <div class="product-image">
-                    <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/I260.png?raw=true" alt="I260">
-                </div>
-                <div class="product-text">
-                    <h3>I260</h3>
-                    <p>
-                        板卡尺寸：204*187*49mm<br>
-                        板卡質量：≤1000g<br>
-                        測量範圍：0.5~260m<br>
-                        適用場景：智慧交通雷達
-                    </p>
-                </div>
-            </div>
-
-            <!-- Product: I500 -->
-            <div class="product I">
-                <div class="product-image">
-                    <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/I500.png?raw=true" alt="I500">
-                </div>
-                <div class="product-text">
-                    <h3>I500</h3>
-                    <p>
-                        板卡尺寸：204*187*49mm<br>
-                        板卡質量：≤1000g<br>
-                        測量範圍：0.5~500m<br>
-                        適用場景：智慧交通雷達
-                    </p>
-                </div>
-            </div>
-
-            <!-- Product: H10 -->
-            <div class="product H">
-                <div class="product-image">
-                    <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/H10.png?raw=true" alt="H10">
-                </div>
-                <div class="product-text">
-                    <h3>H10</h3>
-                    <p>
-                        板卡尺寸：50*50mm<br>
-                        板卡質量：≤50g<br>
-                        測量範圍：0.3~10m<br>
-                        適用場景：室內人員檢測雷達
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <div id="footer-placeholder"></div>
+    <!-- Footer：保留原有的 footer-placeholder 以便 loadHTML() 載入 -->
+    <footer id="footer-placeholder"></footer>
 
     <script>
+        // 用於儲存所有的 timeout ID，以便在重新篩選時清除
+        let timeoutIds = [];
+
+        // 加載外部 HTML 文件的函數（保持原樣）
         function loadHTML(elementId, url) {
             fetch(url)
                 .then(response => response.text())
@@ -246,18 +356,36 @@
                 });
         }
 
+        // 篩選產品的函數
         function filterProducts(category) {
             const products = document.querySelectorAll('.product');
+            
+            // 清除所有之前設定的 timeout
+            timeoutIds.forEach(id => clearTimeout(id));
+            timeoutIds = [];
+
+            // 首先隱藏所有產品
             products.forEach(product => {
-                if (category === 'all' || product.classList.contains(category)) {
-                    product.classList.add('visible');
-                } else {
-                    product.classList.remove('visible');
-                }
+                product.classList.remove('visible');
+            });
+
+            // 選出符合條件的產品
+            let filteredProducts;
+            if (category === 'all') {
+                filteredProducts = Array.from(products);
+            } else {
+                filteredProducts = Array.from(products).filter(product => product.classList.contains(category));
+            }
+
+            // 依序顯示產品
+            filteredProducts.forEach(product => {
+                product.classList.add('visible');
             });
         }
 
+        // DOM 內容加載完成後執行的函數
         document.addEventListener("DOMContentLoaded", function() {
+            // 保留原來的方式載入 header.html 與 footer.html
             loadHTML('header-placeholder', 'header.html');
             loadHTML('footer-placeholder', 'footer.html');
             filterProducts('all'); // 預設顯示所有產品

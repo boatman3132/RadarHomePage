@@ -11,19 +11,30 @@
     </nav>
 </header>
 <style>
+    header {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
     .nav-item {
         display: inline-block;
-        transition: background-color 0.3s ease, transform 0.3s ease, color 0.2s ease; /* 調整顏色變換時間 */
+        transition: background-color 0.3s ease, transform 0.3s ease, color 0.2s ease;
     }
     .nav-link {
         text-decoration: none;
         color: inherit;
         display: block;
-        padding: 15px 25px; /* 擴大按鈕的範圍 */
+        padding: 15px 25px;
     }
     .nav-link:hover {
-        background: linear-gradient(45deg, #e0e0e0, #ffffff); /* 使用漸變效果 */
-        transform: scale(1.1); /* 增加動態效果 */
-        color: #333; /* 文字顏色改為較深色 */
+        background: linear-gradient(45deg, #e0e0e0, #ffffff);
+        transform: scale(1.1);
+        color: #333;
     }
 </style>
