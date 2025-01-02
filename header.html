@@ -1,19 +1,22 @@
 <header>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">璿機科技股份有限公司</a></div>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+            <img src="https://raw.githubusercontent.com/boatman3132/RadarHomePage/refs/heads/main/img/%E6%88%AA%E5%9C%96_2025-01-02_%E4%B8%8B%E5%8D%886.22.14-removebg-preview.png" alt="Logo" class="logo-img">
+            <span class="logo-text">璿機科技股份有限公司</span>
+        </a>
+    </div>
     <nav>
         <ul>
             <li class="nav-item"><a href="index.html" class="nav-link">首頁</a></li>
             <li class="nav-item"><a href="products.html" class="nav-link">產品介紹</a></li>
             <li class="nav-item"><a href="services.html" class="nav-link">服務項目</a></li>
             <li class="nav-item"><a href="about.html" class="nav-link">關於我們</a></li>
-
-            <!-- 新增的空白項目 -->
             <li class="nav-item"><span class="nav-link"></span></li>
         </ul>
-        
     </nav>
 </header>
+
 <style>
     header {
         background-color: #333;
@@ -25,6 +28,28 @@
         top: 0;
         left: 0;
         z-index: 1000;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: left; /* 左對齊 */
+        padding-left: 20px;
+    }
+
+    .logo a {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-img {
+        width: 200px;
+        height: auto;
+        margin-right: 20px;
+    }
+
+    .logo-text {
+        font-size: 24px;
     }
 
     .nav-item {
@@ -48,10 +73,9 @@
 
     /* 禁用空白項目的 hover 效果 */
     .nav-item span.nav-link:hover {
-        background: none;  /* 禁止反白背景 */
-        transform: none;   /* 禁止縮放效果 */
-        color: inherit;    /* 保持顏色不變 */
-        cursor: default;   /* 禁止顯示可點擊指標 */
+        background: none;
+        transform: none;
+        color: inherit;
+        cursor: default;
     }
-
 </style>
