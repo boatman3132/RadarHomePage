@@ -7,7 +7,11 @@
             <li class="nav-item"><a href="products.html" class="nav-link">產品介紹</a></li>
             <li class="nav-item"><a href="services.html" class="nav-link">服務項目</a></li>
             <li class="nav-item"><a href="about.html" class="nav-link">關於我們</a></li>
+
+            <!-- 新增的空白項目 -->
+            <li class="nav-item"><span class="nav-link"></span></li>
         </ul>
+        
     </nav>
 </header>
 <style>
@@ -22,19 +26,32 @@
         left: 0;
         z-index: 1000;
     }
+
     .nav-item {
         display: inline-block;
         transition: background-color 0.3s ease, transform 0.3s ease, color 0.2s ease;
     }
+
     .nav-link {
         text-decoration: none;
         color: inherit;
         display: block;
         padding: 15px 25px;
     }
+
+    /* 預設的 hover 效果 */
     .nav-link:hover {
         background: linear-gradient(45deg, #e0e0e0, #ffffff);
         transform: scale(1.1);
         color: #333;
     }
+
+    /* 禁用空白項目的 hover 效果 */
+    .nav-item span.nav-link:hover {
+        background: none;  /* 禁止反白背景 */
+        transform: none;   /* 禁止縮放效果 */
+        color: inherit;    /* 保持顏色不變 */
+        cursor: default;   /* 禁止顯示可點擊指標 */
+    }
+
 </style>
