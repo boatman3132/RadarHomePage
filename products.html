@@ -9,30 +9,55 @@
         .product {
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
+            display: none; /* 隱藏產品，直到被篩選出來 */
+            /* 移除 display: flex; */
+            /* 使用 flex 佈局，僅在 .visible 時設置 */
         }
         .product.visible {
             opacity: 1;
+            display: flex; /* 顯示被篩選的產品 */
+            align-items: center; /* 垂直置中 */
+        }
+        .product-image {
+            margin-right: 20px; /* 圖片與文字之間的間距 */
         }
         .sidebar {
             float: left;
             width: 200px;
             margin-right: 20px;
+            background-color: #6060b3;
+            color: white;
+            padding: 10px;
         }
         .product-container {
             margin-left: 220px;
         }
+
     </style>
 </head>
 <body>
     <!-- Header -->
     <div id="header-placeholder"></div>
 
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3 style="margin-bottom: 10px;">產品目錄</h3>
+        <ul style="list-style-type: none; padding: 0;">
+            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('all')">顯示全部</li>
+            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('U')">U系列 無人機避障與防地飛行</li>
+            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('V')">V系列 汽車雷達</li>
+            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('R')">R系列 機器人避障雷達</li>
+            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('I')">I系列 智慧交通雷達</li>
+            <li style="border-bottom: 1px dashed #ccc; padding: 10px 0; cursor: pointer;" onclick="filterProducts('H')">H系列 室內人員檢測雷達</li>
+        </ul>
+    </div>
+
     <!-- Products Section -->
     <section id="products">
         <h2>產品介紹</h2>
         <div class="product-container">
             <!-- Product: U20 -->
-            <div class="product">
+            <div class="product U">
                 <div class="product-image">
                     <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U20.png?raw=true" alt="U20">
                 </div>
@@ -48,7 +73,7 @@
             </div>
 
             <!-- Product: U80 -->
-            <div class="product">
+            <div class="product U">
                 <div class="product-image">
                     <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U80.png?raw=true" alt="U80">
                 </div>
@@ -64,7 +89,7 @@
             </div>
 
             <!-- Product: U100 -->
-            <div class="product">
+            <div class="product U">
                 <div class="product-image">
                     <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U100.png?raw=true" alt="U100">
                 </div>
@@ -80,7 +105,7 @@
             </div>
 
             <!-- Product: VF160 -->
-            <div class="product">
+            <div class="product V">
                 <div class="product-image">
                     <img src="https://raw.githubusercontent.com/boatman3132/RadarHomePage/refs/heads/main/img/VF160.png" alt="VF160">
                 </div>
@@ -96,7 +121,7 @@
             </div>
 
             <!-- Product: VF200 -->
-            <div class="product">
+            <div class="product V">
                 <div class="product-image">
                     <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VF200.png?raw=true" alt="VF200">
                 </div>
@@ -112,7 +137,7 @@
             </div>
 
             <!-- Product: VJ40 -->
-            <div class="product">
+            <div class="product V">
                 <div class="product-image">
                     <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VJ40.png?raw=true" alt="VJ40">
                 </div>
@@ -128,7 +153,7 @@
             </div>
 
             <!-- Product: VJ80 -->
-            <div class="product">
+            <div class="product V">
                 <div class="product-image">
                     <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VJ80.png?raw=true" alt="VJ80">
                 </div>
@@ -144,7 +169,7 @@
             </div>
 
             <!-- Product: R20 -->
-            <div class="product">
+            <div class="product R">
                 <div class="product-image">
                     <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/R20.png?raw=true" alt="R20">
                 </div>
@@ -160,7 +185,7 @@
             </div>
 
             <!-- Product: I260 -->
-            <div class="product">
+            <div class="product I">
                 <div class="product-image">
                     <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/I260.png?raw=true" alt="I260">
                 </div>
@@ -176,7 +201,7 @@
             </div>
 
             <!-- Product: I500 -->
-            <div class="product">
+            <div class="product I">
                 <div class="product-image">
                     <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/I500.png?raw=true" alt="I500">
                 </div>
@@ -192,7 +217,7 @@
             </div>
 
             <!-- Product: H10 -->
-            <div class="product">
+            <div class="product H">
                 <div class="product-image">
                     <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/H10.png?raw=true" alt="H10">
                 </div>
@@ -221,15 +246,21 @@
                 });
         }
 
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                if (category === 'all' || product.classList.contains(category)) {
+                    product.classList.add('visible');
+                } else {
+                    product.classList.remove('visible');
+                }
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             loadHTML('header-placeholder', 'header.html');
             loadHTML('footer-placeholder', 'footer.html');
-            const products = document.querySelectorAll('.product');
-            products.forEach((product, index) => {
-                setTimeout(() => {
-                    product.classList.add('visible');
-                }, index * 250); // 每個產品延遲0.25秒顯示
-            });
+            filterProducts('all'); // 預設顯示所有產品
         });
     </script>
 </body>
