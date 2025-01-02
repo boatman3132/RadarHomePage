@@ -41,6 +41,10 @@
             border-radius: 8px;
             box-sizing: border-box;
             flex-shrink: 0;
+            position: sticky;
+            top: 80px; /* 保持在頁首下方 */
+            height: calc(100vh - 80px); /* 使側邊欄高度與視窗高度一致 */
+            overflow-y: auto; /* 允許垂直滾動 */
         }
 
         .sidebar h3 {
@@ -68,7 +72,8 @@
         /* 產品展示區 */
         .product-section {
             flex: 1;
-            padding-left: 20px;
+            padding-left: 20px; /* 調整以避開固定的側邊欄 */
+            margin-left: 40px; /* 確保產品展示區不被側邊欄遮擋 */
         }
 
         .product-section h2 {
@@ -81,6 +86,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 調整為三列 */
             gap: 20px;
+            align-items: start; /* 使所有產品的外框上緣對齊 */
         }
 
         /* 單個產品的基本樣式 */
@@ -107,12 +113,34 @@
             max-width: 100%;
             height: auto;
             border-radius: 4px;
+            cursor: pointer; /* 讓圖片看起來可點擊 */
+            transition: transform 0.35s; /* 添加過渡效果 */
+        }
+
+        /* 當滑鼠游標放置在產品圖片上時，微微放大圖片的大小 */
+        .product-image img:hover {
+            transform: scale(1.035); /* 放大 5% */
         }
 
         /* 產品文字區域的樣式 */
         .product-text {
             margin-top: 10px;
             text-align: left; /* 靠左對齊產品介紹文字 */
+        }
+
+        /* 產品名稱置中顯示 */
+        .product-text h3 {
+            text-align: center;
+        }
+
+        /* 產品詳細資訊的樣式 */
+        .product-details {
+            display: none;
+            margin-top: 10px;
+            background-color: #e9e9e9;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: left;
         }
 
         /* 響應式設計 */
@@ -124,10 +152,13 @@
             .sidebar {
                 width: 100%;
                 margin-bottom: 20px;
+                position: static; /* 在小螢幕上取消固定 */
+                height: auto; /* 自動調整高度 */
             }
 
             .product-section {
                 padding-left: 0;
+                margin-left: 0; /* 在小螢幕上取消左側間距 */
             }
 
             .product-container {
@@ -164,7 +195,7 @@
                 <!-- Product: U20 -->
                 <div class="product U">
                     <div class="product-image">
-                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U20.png?raw=true" alt="U20">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U20.png?raw=true" alt="U20" onclick="toggleDetails(this)">
                     </div>
                     <div class="product-text">
                         <h3>U20</h3>
@@ -175,12 +206,27 @@
                             適用場景：無人機避障與防地飛行
                         </p>
                     </div>
+                    <div class="product-details" style="display: none;">
+                        <h4>產品詳情</h4>
+                        <p>
+                            板卡尺寸：35*35mm<br>
+                            板卡質量：≦30g<br>
+                            輸入電壓（峰值電流）：DC5V（500mA）<br>
+                            通信接口：TTL/RS485/RS422<br>
+                            頻率範圍：79~81GHz/60~64GHz<br>
+                            測量範圍：1~20m（最遠可達40m）<br>
+                            距離精度：0.02m<br>
+                            FOV範圍：方位向±60°，俯仰向±18°<br>
+                            最大可探測目標數：24<br>
+                            輸出數據類型：目標跟蹤軌跡（目標散射點雲）
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Product: U80 -->
                 <div class="product U">
                     <div class="product-image">
-                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U80.png?raw=true" alt="U80">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U80.png?raw=true" alt="U80" onclick="toggleDetails(this)">
                     </div>
                     <div class="product-text">
                         <h3>U80</h3>
@@ -191,12 +237,27 @@
                             適用場景：無人機避障與防地飛行
                         </p>
                     </div>
+                    <div class="product-details" style="display: none;">
+                        <h4>產品詳情</h4>
+                        <p>
+                            板卡尺寸：50*50mm<br>
+                            板卡質量：≦70g<br>
+                            輸入電壓（峰值電流）：DC12V（300mA）/DC5V（500mA）<br>
+                            通信接口：CAN/TTL/RS485/RS422<br>
+                            頻率範圍：79~81GHz/60~64GHz<br>
+                            測量範圍：1~100m<br>
+                            距離精度：0.02m<br>
+                            FOV範圍：方位向±60°，俯仰向±15°<br>
+                            最大可探測目標數：24<br>
+                            輸出數據類型：目標跟蹤軌跡（目標散射點雲）
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Product: U100 -->
                 <div class="product U">
                     <div class="product-image">
-                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U100.png?raw=true" alt="U100">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/U100.png?raw=true" alt="U100" onclick="toggleDetails(this)">
                     </div>
                     <div class="product-text">
                         <h3>U100</h3>
@@ -207,12 +268,27 @@
                             適用場景：無人機避障與防地飛行
                         </p>
                     </div>
+                    <div class="product-details" style="display: none;">
+                        <h4>產品詳情</h4>
+                        <p>
+                            板卡尺寸：50*50mm<br>
+                            板卡質量：≦50g<br>
+                            輸入電壓（峰值電流）：DC12V（300mA）/DC5V（500mA）<br>
+                            通信接口：CAN/TTL/RS485/RS422<br>
+                            頻率範圍：79~81GHz/60~64GHz<br>
+                            測量範圍：1~100m<br>
+                            距離精度：0.02m<br>
+                            FOV範圍：方位向±60°，俯仰向±10°<br>
+                            最大可探測目標數：24<br>
+                            輸出數據類型：目標跟蹤軌跡（目標散射點雲）
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Product: VF160 -->
                 <div class="product V">
                     <div class="product-image">
-                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VF160.png?raw=true" alt="VF160">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VF160.png?raw=true" alt="VF160" onclick="toggleDetails(this)">
                     </div>
                     <div class="product-text">
                         <h3>VF160</h3>
@@ -223,12 +299,28 @@
                             適用場景：汽車前向避障雷達
                         </p>
                     </div>
+                    <div class="product-details" style="display: none;">
+                        <h4>產品詳情</h4>
+                        <p>
+                            產品尺寸：95.6*77.2*21.6mm<br>
+                            產品質量：≦200g<br>
+                            輸入電壓（峰值電流）：DC12V（400mA）<br>
+                            通信接口：CAN/CAN-FD/TTL<br>
+                            頻率範圍：76~81GHz<br>
+                            測量範圍：1~160m<br>
+                            距離精度：0.02m<br>
+                            FOV範圍：方位向±60°，俯仰向±10°<br>
+                            最大可探測目標數：24<br>
+                            輸出數據類型：目標跟蹤軌跡(目標散射點雲，40m內可輸出目標高度數據）<br>
+                            防水等級：IP67
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Product: VF200 -->
                 <div class="product V">
                     <div class="product-image">
-                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VF200.png?raw=true" alt="VF200">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VF200.png?raw=true" alt="VF200" onclick="toggleDetails(this)">
                     </div>
                     <div class="product-text">
                         <h3>VF200</h3>
@@ -239,12 +331,27 @@
                             適用場景：汽車前向避障雷達
                         </p>
                     </div>
+                    <div class="product-details" style="display: none;">
+                        <h4>產品詳情</h4>
+                        <p>
+                            產品尺寸：95.6*77.2*21.6mm<br>
+                            產品質量：≦200g<br>
+                            輸入電壓（峰值電流）：DC12V（500mA）<br>
+                            通信接口：CAN/RS485/RS422/TTL<br>
+                            頻率範圍：76~81GHz<br>
+                            測量範圍：1~200m<br>
+                            距離精度：0.02m<br>
+                            FOV範圍：方位向±60°，俯仰向±10°<br>
+                            最大可探測目標數：24<br>
+                            輸出數據類型：目標跟蹤軌跡(目標散射點雲，40m內可輸出目標高度數據）
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Product: VJ40 -->
                 <div class="product V">
                     <div class="product-image">
-                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VJ40.png?raw=true" alt="VJ40">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VJ40.png?raw=true" alt="VJ40" onclick="toggleDetails(this)">
                     </div>
                     <div class="product-text">
                         <h3>VJ40</h3>
@@ -255,12 +362,28 @@
                             適用場景：汽車角雷達
                         </p>
                     </div>
+                    <div class="product-details" style="display: none;">
+                        <h4>產品詳情</h4>
+                        <p>
+                            產品尺寸：91*66*15mm<br>
+                            產品質量：≦200g<br>
+                            輸入電壓（峰值電流）：DC12V（300mA）<br>
+                            通信接口：CAN/CAN-FD/TTL<br>
+                            頻率範圍：76~81GHz<br>
+                            測量範圍：1~40m<br>
+                            距離精度：0.02m<br>
+                            FOV範圍：方位向±60°，俯仰向±10°<br>
+                            最大可探測目標數：24<br>
+                            輸出數據類型：目標跟蹤軌跡（目標散射點雲）<br>
+                            防水等級：IP67
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Product: VJ80 -->
                 <div class="product V">
                     <div class="product-image">
-                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VJ80.png?raw=true" alt="VJ80">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/VJ80.png?raw=true" alt="VJ80" onclick="toggleDetails(this)">
                     </div>
                     <div class="product-text">
                         <h3>VJ80</h3>
@@ -271,12 +394,28 @@
                             適用場景：汽車角雷達
                         </p>
                     </div>
+                    <div class="product-details" style="display: none;">
+                        <h4>產品詳情</h4>
+                        <p>
+                            產品尺寸：91*66*15mm<br>
+                            產品質量：≦120g<br>
+                            輸入電壓（峰值電流）：DC12V（350mA）<br>
+                            通信接口：CAN/CAN-FD/TTL<br>
+                            頻率範圍：76~81GHz<br>
+                            測量範圍：1~80m<br>
+                            距離精度：0.02m<br>
+                            FOV範圍：方位向±60°，俯仰向±10°<br>
+                            最大可探測目標數：24<br>
+                            輸出數據類型：目標跟蹤軌跡(目標散射點雲，40m內可輸出目標高度數據）<br>
+                            防水等級：IP67
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Product: R20 -->
                 <div class="product R">
                     <div class="product-image">
-                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/R20.png?raw=true" alt="R20">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/R20.png?raw=true" alt="R20" onclick="toggleDetails(this)">
                     </div>
                     <div class="product-text">
                         <h3>R20</h3>
@@ -287,12 +426,27 @@
                             適用場景：機器人避障雷達
                         </p>
                     </div>
+                    <div class="product-details" style="display: none;">
+                        <h4>產品詳情</h4>
+                        <p>
+                            板卡尺寸：40*40mm<br>
+                            板卡質量：≦30g<br>
+                            輸入電壓（峰值電流）：DC5V（400mA）<br>
+                            通信接口：TTL/RS485/RS422<br>
+                            頻率範圍：60~64GHz<br>
+                            測量範圍：1~20m（最遠可達40m）<br>
+                            距離精度：0.02m<br>
+                            FOV範圍：方位向±60°，俯仰向±26°<br>
+                            最大可探測目標數：24<br>
+                            輸出數據類型：目標跟蹤軌跡（目標散射點雲）
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Product: I260 -->
                 <div class="product I">
                     <div class="product-image">
-                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/I260.png?raw=true" alt="I260">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/I260.png?raw=true" alt="I260" onclick="toggleDetails(this)">
                     </div>
                     <div class="product-text">
                         <h3>I260</h3>
@@ -303,12 +457,28 @@
                             適用場景：智慧交通雷達
                         </p>
                     </div>
+                    <div class="product-details" style="display: none;">
+                        <h4>產品詳情</h4>
+                        <p>
+                            產品尺寸：204*187*49mm<br>
+                            產品質量：≦1000g<br>
+                            輸入電壓（峰值電流）：DC12V（1000mA）<br>
+                            通信接口：RJ45/RS485/RS422/TTL<br>
+                            頻率範圍：76~81GHz/60~64GHz<br>
+                            測量範圍：0.5~260m<br>
+                            距離精度：0.03m<br>
+                            FOV範圍：方位向±60°，俯仰向±5°<br>
+                            最大可探測目標數：256<br>
+                            輸出數據類型：目標跟蹤軌跡（目標散射點雲）<br>
+                            防水等級：IP67
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Product: I500 -->
                 <div class="product I">
                     <div class="product-image">
-                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/I500.png?raw=true" alt="I500">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/I500.png?raw=true" alt="I500" onclick="toggleDetails(this)">
                     </div>
                     <div class="product-text">
                         <h3>I500</h3>
@@ -319,12 +489,28 @@
                             適用場景：智慧交通雷達
                         </p>
                     </div>
+                    <div class="product-details" style="display: none;">
+                        <h4>產品詳情</h4>
+                        <p>
+                            產品尺寸：204*187*49mm<br>
+                            產品質量：≦1000g<br>
+                            輸入電壓（峰值電流）：DC12V（1000mA）<br>
+                            通信接口：RJ45/RS485/RS422/TTL<br>
+                            頻率範圍：79~81GHz/60~64GHz<br>
+                            測量範圍：0.5~500m<br>
+                            距離精度：0.05m<br>
+                            FOV範圍：方位向±60°，俯仰向±5°<br>
+                            最大可探測目標數：256<br>
+                            輸出數據類型：目標跟蹤軌跡（目標散射點雲）<br>
+                            防水等級：IP67
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Product: H10 -->
                 <div class="product H">
                     <div class="product-image">
-                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/H10.png?raw=true" alt="H10">
+                        <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/H10.png?raw=true" alt="H10" onclick="toggleDetails(this)">
                     </div>
                     <div class="product-text">
                         <h3>H10</h3>
@@ -333,6 +519,21 @@
                             板卡質量：≤50g<br>
                             測量範圍：0.3~10m<br>
                             適用場景：室內人員檢測雷達
+                        </p>
+                    </div>
+                    <div class="product-details" style="display: none;">
+                        <h4>產品詳情</h4>
+                        <p>
+                            板卡尺寸：50*50mm<br>
+                            板卡質量：≦50g<br>
+                            輸入電壓（峰值電流）：DC5V（500mA）<br>
+                            通信接口：TTL/RS485/RS422/RS232<br>
+                            頻率範圍：79~81GHz/60~64GHz<br>
+                            測量範圍：0.3~10m<br>
+                            距離精度：0.02m<br>
+                            FOV範圍：方位向±60°，俯仰向±30°<br>
+                            最大可探測目標數：10<br>
+                            輸出數據類型：目標跟蹤軌跡（目標散射點雲）
                         </p>
                     </div>
                 </div>
@@ -381,6 +582,21 @@
             filteredProducts.forEach(product => {
                 product.classList.add('visible');
             });
+        }
+
+        // 切換產品詳細資訊的顯示
+        function toggleDetails(imageElement) {
+            const productText = imageElement.parentElement.nextElementSibling;
+            const productDescription = productText.querySelector('p'); // 取得產品描述
+            const productDetails = productText.nextElementSibling;
+            
+            if (productDetails.style.display === "none" || productDetails.style.display === "") {
+                productDetails.style.display = "block";
+                productDescription.style.display = "none"; // 隱藏產品描述
+            } else {
+                productDetails.style.display = "none";
+                productDescription.style.display = "block"; // 顯示產品描述
+            }
         }
 
         // DOM 內容加載完成後執行的函數
