@@ -76,47 +76,9 @@
     </style>
 </head>
 <body>
-    <!-- 引入 header.html -->
-    <header>
-        <link rel="icon" href="favicon.ico" type="image/x-icon">
-        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">璿機科技股份有限公司</a></div>
-        <nav>
-            <ul>
-                <li class="nav-item"><a href="index.html" class="nav-link">首頁</a></li>
-                <li class="nav-item"><a href="products.html" class="nav-link">產品介紹</a></li>
-                <li class="nav-item"><a href="services.html" class="nav-link">服務項目</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link">關於我們</a></li>
-            </ul>
-        </nav>
-    </header>
-    <style>
-        header {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-        .nav-item {
-            display: inline-block;
-            transition: background-color 0.3s ease, transform 0.3s ease, color 0.2s ease;
-        }
-        .nav-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            padding: 15px 25px;
-        }
-        .nav-link:hover {
-            background: linear-gradient(45deg, #e0e0e0, #ffffff);
-            transform: scale(1.1);
-            color: #333;
-        }
-    </style>
+    <!-- 引入外部的 header.html -->
+    <header id="header-placeholder"></header>
+    <div style="height: 100px;"></div>
 
     <section class="banner">
         <h1>專業毫米波雷達模組供應商</h1>
@@ -145,6 +107,7 @@
 
         // DOM 內容加載完成後執行的函數
         document.addEventListener("DOMContentLoaded", function() {
+            loadHTML('header-placeholder', 'header.html');
             loadHTML('footer-placeholder', 'footer.html');
         });
     </script>
