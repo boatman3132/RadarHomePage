@@ -142,6 +142,31 @@
             border-radius: 4px;
             text-align: left;
         }
+        .modern-button {
+            background-color: #2575fc;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modern-button:hover {
+            background-color: #1a5fcb;
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .modern-button:active {
+            background-color: #174ea6;
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
 
         /* 響應式設計 */
         @media (max-width: 768px) {
@@ -188,12 +213,13 @@
         </div>
 
         <!-- Products Section -->
-        <section class="product-section" id="products">
-            <button onclick="window.location.href='Radar_Product_Details.html';" style="margin-bottom: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer;">
-                前往其他頁面
-            </button>
+        <section class="product-section" id="products">        
         
             <h2>產品介紹</h2>
+            <button class="modern-button" onclick="window.location.href='Radar_Product_Details.html';">
+                雷達規格詳細比較
+            </button>
+            <br></br>
             <div class="product-container">
                 <!-- 產品列表 -->
                 <!-- Product: U20 -->
