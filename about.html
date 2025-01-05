@@ -1,16 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>關於我們 - 璿機科技</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>關於我們 - 璿機科技</title>
+
 </head>
 <body>
-<!-- Header -->
-<div id="header-placeholder"></div>
+    <!-- 引入外部的 header.html -->
+    <header id="header-placeholder"></header>
+    <div style="height: 100px;"></div>
 
-<div style="height: 130px;"></div>
 
     <!-- About Section -->
     <section id="about">
@@ -18,10 +21,15 @@
         <p>我們是一家致力於提供高品質服務的公司，擁有多年行業經驗。</p>
     </section>
 
-    <!-- Footer -->
-    <div id="footer-placeholder"></div>
+    
+    <div style="height: 100px;"></div>
+
+
+    <!-- 引入外部的 footer.html -->
+    <footer id="footer-placeholder"></footer>
 
     <script>
+        // 加載外部 HTML 文件的函數
         function loadHTML(elementId, url) {
             fetch(url)
                 .then(response => response.text())
@@ -30,8 +38,11 @@
                 });
         }
 
-        loadHTML('header-placeholder', 'header.html');
-        loadHTML('footer-placeholder', 'footer.html');
+        // DOM 內容加載完成後執行的函數
+        document.addEventListener("DOMContentLoaded", function() {
+            loadHTML('header-placeholder', 'header.html');
+            loadHTML('footer-placeholder', 'footer.html');
+        });
     </script>
 </body>
 </html>
