@@ -253,7 +253,8 @@
 </section>
 
 <script>
-function filterProducts(category) {
+    
+    function filterProducts(category) {
     // 獲取型號行的所有單元格
     const modelRow = document.querySelector('#radarDetailsTable tbody tr:first-child');
     const modelCells = modelRow.getElementsByTagName('td');
@@ -276,50 +277,12 @@ function filterProducts(category) {
             cell.style.display = columnsToShow.includes(index) ? '' : 'none';
         });
     });
-    
-    // 更新側邊欄選中狀態
-    const sidebarItems = document.querySelectorAll('.sidebar li');
-    sidebarItems.forEach(item => {
-        item.classList.remove('active');
-        if (item.getAttribute('onclick').includes(category)) {
-            item.classList.add('active');
-        }
-    });
 }
 
 // 當頁面載入時初始化
 document.addEventListener("DOMContentLoaded", function() {
     // 預設顯示所有產品
     filterProducts('all');
-    
-    // 為側邊欄添加樣式
-    const style = document.createElement('style');
-    style.textContent = `
-        .sidebar li {
-            cursor: pointer;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .sidebar li:hover {
-            background-color: #f0f0f0;
-        }
-        .sidebar li.active {
-            background-color: #e0e0e0;
-            font-weight: bold;
-        }
-        #radarDetailsTable {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        #radarDetailsTable td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-    `;
-    document.head.appendChild(style);
 });
 </script>
 
