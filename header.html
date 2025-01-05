@@ -24,12 +24,11 @@
         </ul>
     </nav>
 </header>
-
 <style>
     header {
         background-color: rgb(0, 47, 123);
         color: white;
-        padding: 20px;
+        padding: 10px 20px; /* 減少上下內間距 */
         text-align: center;
         position: fixed;
         width: 100%;
@@ -51,13 +50,13 @@
     }
 
     .logo-img {
-        width: 200px;
+        width: 150px; /* 如果需要，縮小 LOGO 大小 */
         height: auto;
-        margin-right: 20px;
+        margin-right: 15px;
     }
 
     .logo-text {
-        font-size: 24px;
+        font-size: 20px; /* 減少字體大小 */
     }
 
     .nav-item {
@@ -69,17 +68,15 @@
         text-decoration: none;
         color: inherit;
         display: block;
-        padding: 15px 25px;
+        padding: 10px 20px; /* 調整導航按鈕的內間距 */
     }
 
-    /* 預設的 hover 效果 */
     .nav-link:hover {
         background: linear-gradient(45deg, #e0e0e0, #ffffff);
         transform: scale(1.1);
         color: #333;
     }
 
-    /* 禁用空白項目的 hover 效果 */
     .nav-item span.nav-link:hover {
         background: none;
         transform: none;
@@ -92,10 +89,10 @@
         color: white;
         border: 1px solid white;
         border-radius: 4px;
-        padding: 8px 12px;
+        padding: 5px 10px; /* 減少語言選擇下拉框的內間距 */
         margin-left: 10px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .language-select:hover {

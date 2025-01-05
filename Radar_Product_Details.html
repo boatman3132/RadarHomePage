@@ -6,171 +6,60 @@
     <title>雷達產品資料 - 璿機科技</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        th {
-            cursor: pointer;
-            user-select: none;
-            position: relative;
-            padding-right: 20px !important;
-        }
-        th:hover {
-            background-color: #f0f0f0;
-        }
-        th::after {
-            content: '';
-            position: absolute;
-            right: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid #999;
-            border-bottom: 5px solid #999;
-            height: 4px;
-            opacity: 0.3;
-        }
-        th.desc::after {
-            border-bottom: 8px solid #333;
-            border-top: none;
-            opacity: 1;
-        }
-        th.asc::after {
-            border-top: 8px solid #333;
-            border-bottom: none;
-            opacity: 1;
-        }
-
-        /* 針對「詳細資訊表格」的簡單樣式 */
+        /* 針對「詳細資訊表格」的樣式 */
         #radarDetailsTable {
-            margin-top: 100px; /* Increased from 40px */
-            border-collapse: collapse;
-            width: 100%;
+            margin-top: 60px; /* 表格與頁面頂部的距離 */
+            border-collapse: collapse; /* 合併表格邊框 */
+            width: 100%; /* 表格寬度填滿頁面 */
         }
         #radarDetailsTable th, #radarDetailsTable td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
+            border: 1px solid #ddd; /* 單元格邊框 */
+            padding: 8px; /* 單元格內邊距 */
+            text-align: center; /* 文字居中 */
         }
         #radarDetailsTable th {
-            background-color: #eaeaea;
-            position: sticky;
-            top: 75px; /* Account for fixed header */
-            z-index: 2;
+            background-color: #eaeaea; /* 表頭背景色 */
+            position: sticky; /* 固定表頭位置 */
+            top: 75px; /* 表頭固定高度 */
+            z-index: 2; /* 確保表頭顯示在最上層 */
         }
+        /* 第一行的單元格固定樣式 */
         #radarDetailsTable tbody tr:first-child td {
             position: sticky;
-            top: 115px; /* 75px header + 50px for first row height */
-            z-index: 1;
-            background-color: white;
-            box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1); /* Add subtle shadow */
+            top: 75px; /* 表頭高度 + 第一行高度 */
+            z-index: 1; /* 優先於其他內容 */
+            background-color: white; /* 背景色保持一致 */
+            box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1); /* 輕微陰影分隔 */
         }
     </style>
 </head>
 <body>
-<!-- Header -->
-<header>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <div class="logo">
-        <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-            <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/BlueLOGO.png?raw=true" alt="Logo" class="logo-img">
-            <span class="logo-text">璿機科技股份有限公司</span>
-        </a>
-    </div>
-    <nav>
-        <ul>
-            <li class="nav-item"><a href="index.html" class="nav-link">首頁</a></li>
-            <li class="nav-item"><a href="products.html" class="nav-link">產品介紹</a></li>
-            <li class="nav-item"><a href="services.html" class="nav-link">服務項目</a></li>
-            <li class="nav-item"><a href="about.html" class="nav-link">關於我們</a></li>
-            <li class="nav-item"><span class="nav-link"></span></li>
-        </ul>
-    </nav>
-</header>
+<!-- Header 區塊 -->
+<div id="header-placeholder"></div> <!-- 用於插入外部 Header -->
+<div style="height: 20px;"></div> <!-- 提供額外間距 -->
 
-<style>
-    header {
-        background-color: rgb(0, 47, 123);
-        color: white;
-        padding: 20px;
-        text-align: center;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        left: 0;
-        z-index: 1000;
+<script>
+    /**
+     * 加載外部 HTML（如 Header 和 Footer）功能
+     * @param {string} elementId - 要插入內容的元素 ID
+     * @param {string} url - 外部 HTML 的 URL
+     */
+    function loadHTML(elementId, url) {
+        fetch(url) // 使用 Fetch API 加載外部資源
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById(elementId).innerHTML = data; // 插入 HTML
+            });
     }
 
-    .logo {
-        display: flex;
-        align-items: center;
-        justify-content: left; /* 左對齊 */
-        padding-left: 20px;
-    }
+    // 加載 Header 和 Footer
+    loadHTML('header-placeholder', 'header.html');
+    loadHTML('footer-placeholder', 'footer.html');
+</script>
 
-    .logo a {
-        display: flex;
-        align-items: center;
-    }
-
-    .logo-img {
-        width: 200px;
-        height: auto;
-        margin-right: 20px;
-    }
-
-    .logo-text {
-        font-size: 24px;
-    }
-
-    .nav-item {
-        display: inline-block;
-        transition: background-color 0.3s ease, transform 0.3s ease, color 0.2s ease;
-    }
-
-    .nav-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        padding: 15px 25px;
-    }
-
-    /* 預設的 hover 效果 */
-    .nav-link:hover {
-        background: linear-gradient(45deg, #e0e0e0, #ffffff);
-        transform: scale(1.1);
-        color: #333;
-    }
-
-    /* 禁用空白項目的 hover 效果 */
-    .nav-item span.nav-link:hover {
-        background: none;
-        transform: none;
-        color: inherit;
-        cursor: default;
-    }
-</style>
-
-<div style="height: 20px;"></div>
-
-
-<!-- 新增：橫豎對調的詳細資訊表格 -->
+<!-- 詳細資訊表格 -->
 <section id="productDetails">
     <table id="radarDetailsTable">
-        <!-- <thead>
-            <tr>
-                <th>項目</th>
-                <th>VJ80</th>
-                <th>VJ40</th>
-                <th>VF200</th>
-                <th>VF160</th>
-                <th>U80</th>
-                <th>U20</th>
-                <th>U100</th>
-                <th>R20</th>
-                <th>I500</th>
-                <th>I260</th>
-                <th>H10</th>
-            </tr>
-        </thead> -->
         <tbody>
             <!-- 型號(含圖片) -->
             <tr>
@@ -375,12 +264,6 @@
     // 可以在這裡加上表格排序或其他互動功能
 </script>
 
-<footer style="text-align: left;">
-    <p style="font-weight: bold; font-size: x-large;">聯繫我們</p>
-    <p>地址：台北市士林區中正路495號14樓</p>
-    <p>電話：+886 935548787</p>
-    <p>Email：samuel763@gmail.com</p>
-</footer>
 
 </body>
 </html>
