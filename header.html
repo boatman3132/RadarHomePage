@@ -8,11 +8,19 @@
     </div>
     <nav>
         <ul>
-            <li class="nav-item"><a href="index.html" class="nav-link">首頁</a></li>
-            <li class="nav-item"><a href="products.html" class="nav-link">產品介紹</a></li>
-            <li class="nav-item"><a href="services.html" class="nav-link">服務項目</a></li>
-            <li class="nav-item"><a href="about.html" class="nav-link">關於我們</a></li>
+            <li class="nav-item"><a href="index.html" class="nav-link" data-lang-key="home">首頁</a></li>
+            <li class="nav-item"><a href="products.html" class="nav-link" data-lang-key="products">產品介紹</a></li>
+            <li class="nav-item"><a href="services.html" class="nav-link" data-lang-key="services">服務項目</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link" data-lang-key="about">關於我們</a></li>
+            <li class="nav-item">
+                <select id="language-select" class="language-select">
+                    <option value="zh">中文</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                </select>
+            </li>
             <li class="nav-item"><span class="nav-link"></span></li>
+
         </ul>
     </nav>
 </header>
@@ -77,5 +85,25 @@
         transform: none;
         color: inherit;
         cursor: default;
+    }
+
+    .language-select {
+        background-color: transparent;
+        color: white;
+        border: 1px solid white;
+        border-radius: 4px;
+        padding: 8px 12px;
+        margin-left: 10px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .language-select:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .language-select:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
     }
 </style>

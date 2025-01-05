@@ -1,0 +1,20 @@
+{
+  "en": {
+    "home": "Home",
+    "products": "Products",
+    "services": "Services",
+    "about": "About Us"
+  },
+  "ja": {
+    "home": "ホーム",
+    "products": "製品",
+    "services": "サービス",
+    "about": "私たちについて"
+  },
+  "zh": {
+    "home": "首頁",
+    "products": "產品介紹",
+    "services": "服務項目",
+    "about": "關於我們"
+  }
+}
