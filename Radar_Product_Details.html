@@ -23,330 +23,364 @@
             transform: translateY(-50%);
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
-            border-top: 5px solid #999;     /* 上面的三角形 */
-            border-bottom: 5px solid #999;   /* 下面的三角形 */
+            border-top: 5px solid #999;
+            border-bottom: 5px solid #999;
             height: 4px;
             opacity: 0.3;
         }
         th.desc::after {
-            content: '';
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
             border-bottom: 8px solid #333;
             border-top: none;
             opacity: 1;
         }
         th.asc::after {
-            content: '';
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
             border-top: 8px solid #333;
             border-bottom: none;
             opacity: 1;
+        }
+
+        /* 針對「詳細資訊表格」的簡單樣式 */
+        #radarDetailsTable {
+            margin-top: 100px; /* Increased from 40px */
+            border-collapse: collapse;
+            width: 100%;
+        }
+        #radarDetailsTable th, #radarDetailsTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        #radarDetailsTable th {
+            background-color: #eaeaea;
+            position: sticky;
+            top: 75px; /* Account for fixed header */
+            z-index: 2;
+        }
+        #radarDetailsTable tbody tr:first-child td {
+            position: sticky;
+            top: 115px; /* 75px header + 50px for first row height */
+            z-index: 1;
+            background-color: white;
+            box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1); /* Add subtle shadow */
         }
     </style>
 </head>
 <body>
 <!-- Header -->
-<div id="header-placeholder"></div>
+<header>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+            <img src="https://github.com/boatman3132/RadarHomePage/blob/main/img/BlueLOGO.png?raw=true" alt="Logo" class="logo-img">
+            <span class="logo-text">璿機科技股份有限公司</span>
+        </a>
+    </div>
+    <nav>
+        <ul>
+            <li class="nav-item"><a href="index.html" class="nav-link">首頁</a></li>
+            <li class="nav-item"><a href="products.html" class="nav-link">產品介紹</a></li>
+            <li class="nav-item"><a href="services.html" class="nav-link">服務項目</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link">關於我們</a></li>
+            <li class="nav-item"><span class="nav-link"></span></li>
+        </ul>
+    </nav>
+</header>
 
-<div style="height: 130px;"></div>
+<style>
+    header {
+        background-color: rgb(0, 47, 123);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
 
-<section id="products">
-    <h2>雷達產品資料</h2>
-    <table id="radarTable" border="1" cellspacing="0" cellpadding="8">
-        <colgroup>
-            <col style="width: 100px">
-            <col style="width: 80px">
-            <col style="width: 100px">
-            <col style="width: 80px">
-            <col style="width: 150px">
-            <col style="width: 120px">
-            <col style="width: 120px">
-            <col style="width: 120px">
-            <col style="width: 100px">
-            <col style="width: 100px">
-            <col style="width: 150px">
-            <col style="width: 100px">
-            <col style="width: 200px">
-            <col style="width: 100px">
-        </colgroup>
-        <thead>
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: left; /* 左對齊 */
+        padding-left: 20px;
+    }
+
+    .logo a {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-img {
+        width: 200px;
+        height: auto;
+        margin-right: 20px;
+    }
+
+    .logo-text {
+        font-size: 24px;
+    }
+
+    .nav-item {
+        display: inline-block;
+        transition: background-color 0.3s ease, transform 0.3s ease, color 0.2s ease;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        padding: 15px 25px;
+    }
+
+    /* 預設的 hover 效果 */
+    .nav-link:hover {
+        background: linear-gradient(45deg, #e0e0e0, #ffffff);
+        transform: scale(1.1);
+        color: #333;
+    }
+
+    /* 禁用空白項目的 hover 效果 */
+    .nav-item span.nav-link:hover {
+        background: none;
+        transform: none;
+        color: inherit;
+        cursor: default;
+    }
+</style>
+
+<div style="height: 20px;"></div>
+
+
+<!-- 新增：橫豎對調的詳細資訊表格 -->
+<section id="productDetails">
+    <table id="radarDetailsTable">
+        <!-- <thead>
             <tr>
-                <th>圖片</th>
-                <th onclick="sortTable(0)">型號</th>
-                <th onclick="sortTable(1)">尺寸</th>
-                <th onclick="sortTable(2)">重量</th>
-                <th onclick="sortTable(3)">量測範圍</th>
-                <th onclick="sortTable(4)">用途</th>
-                <th onclick="sortTable(5)">電源供應</th>
-                <th onclick="sortTable(6)">通訊介面</th>
-                <th onclick="sortTable(7)">頻率</th>
-                <th onclick="sortTable(8)">解析度</th>
-                <th onclick="sortTable(9)">視場角</th>
-                <th onclick="sortTable(10)">通道數</th>
-                <th onclick="sortTable(11)">特點</th>
-                <th onclick="sortTable(12)">IP 等級</th>
+                <th>項目</th>
+                <th>VJ80</th>
+                <th>VJ40</th>
+                <th>VF200</th>
+                <th>VF160</th>
+                <th>U80</th>
+                <th>U20</th>
+                <th>U100</th>
+                <th>R20</th>
+                <th>I500</th>
+                <th>I260</th>
+                <th>H10</th>
             </tr>
-        </thead>
+        </thead> -->
         <tbody>
+            <!-- 型號(含圖片) -->
             <tr>
-                <td><img src="img/VJ80.png" alt="VJ80" style="width:80px;height:auto;"></td>
-                <td>VJ80</td>
+                <td>型號</td>
+                <td><img src="img/VJ80.png" alt="VJ80" style="width:80px;height:auto;"><br>VJ80</td>
+                <td><img src="img/VJ40.png" alt="VJ40" style="width:80px;height:auto;"><br>VJ40</td>
+                <td><img src="img/VF200.png" alt="VF200" style="width:80px;height:auto;"><br>VF200</td>
+                <td><img src="img/VF160.png" alt="VF160" style="width:80px;height:auto;"><br>VF160</td>
+                <td><img src="img/U80.png" alt="U80" style="width:80px;height:auto;"><br>U80</td>
+                <td><img src="img/U20.png" alt="U20" style="width:80px;height:auto;"><br>U20</td>
+                <td><img src="img/U100.png" alt="U100" style="width:80px;height:auto;"><br>U100</td>
+                <td><img src="img/R20.png" alt="R20" style="width:80px;height:auto;"><br>R20</td>
+                <td><img src="img/I500.png" alt="I500" style="width:80px;height:auto;"><br>I500</td>
+                <td><img src="img/I260.png" alt="I260" style="width:80px;height:auto;"><br>I260</td>
+                <td><img src="img/H10.png" alt="H10" style="width:80px;height:auto;"><br>H10</td>
+            </tr>
+            <!-- 尺寸 -->
+            <tr>
+                <td>尺寸</td>
                 <td>91*66*15mm</td>
-                <td>≤120g</td>
-                <td>1~80m</td>
-                <td>汽車角雷達</td>
-                <td>DC12V（350mA）</td>
-                <td>CAN/CAN-FD/TTL</td>
-                <td>76~81GHz</td>
-                <td>0.02m</td>
-                <td>方位向±60°，俯仰向±10°</td>
-                <td>24</td>
-                <td>目標跟蹤軌跡(目標散射點雲，40m內可輸出目標高度數據）</td>
-                <td>IP67</td>
-            </tr>
-            <tr>
-                <td><img src="img/VJ40.png" alt="VJ40" style="width:80px;height:auto;"></td>
-                <td>VJ40</td>
                 <td>91*66*15mm</td>
-                <td>≤200g</td>
-                <td>1~40m</td>
-                <td>汽車角雷達</td>
-                <td>DC12V（300mA）</td>
-                <td>CAN/CAN-FD/TTL</td>
-                <td>76~81GHz</td>
-                <td>0.02m</td>
-                <td>方位向±60°，俯仰向±10°</td>
-                <td>24</td>
-                <td>目標跟蹤軌跡（目標散射點雲）</td>
-                <td>IP67</td>
-            </tr>
-            <tr>
-                <td><img src="img/VF200.png" alt="VF200" style="width:80px;height:auto;"></td>
-                <td>VF200</td>
                 <td>95.6*77.2*21.6mm</td>
-                <td>≤200g</td>
-                <td>1~200m</td>
-                <td>汽車前向避障雷達</td>
-                <td>DC12V（500mA）</td>
-                <td>CAN/RS485/RS422/TTL</td>
-                <td>76~81GHz</td>
-                <td>0.02m</td>
-                <td>方位向±60°，俯仰向±10°</td>
-                <td>24</td>
-                <td>目標跟蹤軌跡(目標散射點雲，40m內可輸出目標高度數據）</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="img/VF160.png" alt="VF160" style="width:80px;height:auto;"></td>
-                <td>VF160</td>
                 <td>95.6*77.2*21.6mm</td>
-                <td>≤200g</td>
-                <td>1~160m</td>
-                <td>汽車前向避障雷達</td>
-                <td>DC12V（400mA）</td>
-                <td>CAN/CAN-FD/TTL</td>
-                <td>76~81GHz</td>
-                <td>0.02m</td>
-                <td>方位向±60°，俯仰向±10°</td>
-                <td>24</td>
-                <td>目標跟蹤軌跡(目標散射點雲，40m內可輸出目標高度數據）</td>
-                <td>IP67</td>
-            </tr>
-            <tr>
-                <td><img src="img/U80.png" alt="U80" style="width:80px;height:auto;"></td>
-                <td>U80</td>
                 <td>50*50mm</td>
-                <td>≤70g</td>
-                <td>1~100m</td>
-                <td>無人機避障與防地飛行</td>
-                <td>DC12V（300mA）/DC5V（500mA）</td>
-                <td>CAN/TTL/RS485/RS422</td>
-                <td>79~81GHz/60~64GHz</td>
-                <td>0.02m</td>
-                <td>方位向±60°，俯仰向±15°</td>
-                <td>24</td>
-                <td>目標跟蹤軌跡（目標散射點雲）</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="img/U20.png" alt="U20" style="width:80px;height:auto;"></td>
-                <td>U20</td>
                 <td>35*35mm</td>
-                <td>≤30g</td>
-                <td>1~20m</td>
-                <td>無人機避障與防地飛行</td>
-                <td>DC5V（500mA）</td>
-                <td>TTL/RS485/RS422</td>
-                <td>79~81GHz/60~64GHz</td>
-                <td>0.02m</td>
-                <td>方位向±60°，俯仰向±18°</td>
-                <td>24</td>
-                <td>目標跟蹤軌跡（目標散射點雲）</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="img/U100.png" alt="U100" style="width:80px;height:auto;"></td>
-                <td>U100</td>
                 <td>50*50mm</td>
-                <td>≤50g</td>
-                <td>1~100m</td>
-                <td>無人機避障與防地飛行</td>
-                <td>DC12V（300mA）/DC5V（500mA）</td>
-                <td>CAN/TTL/RS485/RS422</td>
-                <td>79~81GHz/60~64GHz</td>
-                <td>0.02m</td>
-                <td>方位向±60°，俯仰向±10°</td>
-                <td>24</td>
-                <td>目標跟蹤軌跡（目標散射點雲）</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="img/R20.png" alt="R20" style="width:80px;height:auto;"></td>
-                <td>R20</td>
                 <td>40*40mm</td>
-                <td>≤30g</td>
-                <td>1~20m</td>
-                <td>機器人避障雷達</td>
-                <td>DC5V（400mA）</td>
-                <td>TTL/RS485/RS422</td>
-                <td>60~64GHz</td>
-                <td>0.02m</td>
-                <td>方位向±60°，俯仰向±26°</td>
-                <td>24</td>
-                <td>目標跟蹤軌跡（目標散射點雲）</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="img/I500.png" alt="I500" style="width:80px;height:auto;"></td>
-                <td>I500</td>
                 <td>204*187*49mm</td>
-                <td>≤1000g</td>
-                <td>0.5~500m</td>
-                <td>智慧交通雷達</td>
-                <td>DC12V（1000mA）</td>
-                <td>RJ45/RS485/RS422/TTL</td>
-                <td>79~81GHz/60~64GHz</td>
-                <td>0.05m</td>
-                <td>方位向±60°，俯仰向±5°</td>
-                <td>256</td>
-                <td>目標跟蹤軌跡（目標散射點雲）</td>
-                <td>IP67</td>
-            </tr>
-            <tr>
-                <td><img src="img/I260.png" alt="I260" style="width:80px;height:auto;"></td>
-                <td>I260</td>
                 <td>204*187*49mm</td>
-                <td>≤1000g</td>
-                <td>0.5~260m</td>
-                <td>智慧交通雷達</td>
-                <td>DC12V（1000mA）</td>
-                <td>RJ45/RS485/RS422/TTL</td>
-                <td>76~81GHz/60~64GHz</td>
-                <td>0.03m</td>
-                <td>方位向±60°，俯仰向±5°</td>
-                <td>256</td>
-                <td>目標跟蹤軌跡（目標散射點雲）</td>
-                <td>IP67</td>
-            </tr>
-            <tr>
-                <td><img src="img/H10.png" alt="H10" style="width:80px;height:auto;"></td>
-                <td>H10</td>
                 <td>50*50mm</td>
+            </tr>
+            <!-- 重量 -->
+            <tr>
+                <td>重量</td>
+                <td>≤120g</td>
+                <td>≤200g</td>
+                <td>≤200g</td>
+                <td>≤200g</td>
+                <td>≤70g</td>
+                <td>≤30g</td>
                 <td>≤50g</td>
+                <td>≤30g</td>
+                <td>≤1000g</td>
+                <td>≤1000g</td>
+                <td>≤50g</td>
+            </tr>
+            <!-- 量測範圍 -->
+            <tr>
+                <td>量測範圍</td>
+                <td>1~80m</td>
+                <td>1~40m</td>
+                <td>1~200m</td>
+                <td>1~160m</td>
+                <td>1~100m</td>
+                <td>1~20m</td>
+                <td>1~100m</td>
+                <td>1~20m</td>
+                <td>0.5~500m</td>
+                <td>0.5~260m</td>
                 <td>0.3~10m</td>
+            </tr>
+            <!-- 用途 -->
+            <tr>
+                <td>用途</td>
+                <td>汽車角雷達</td>
+                <td>汽車角雷達</td>
+                <td>汽車前向避障雷達</td>
+                <td>汽車前向避障雷達</td>
+                <td>無人機避障與防地飛行</td>
+                <td>無人機避障與防地飛行</td>
+                <td>無人機避障與防地飛行</td>
+                <td>機器人避障雷達</td>
+                <td>智慧交通雷達</td>
+                <td>智慧交通雷達</td>
                 <td>室內人員檢測雷達</td>
+            </tr>
+            <!-- 供電 -->
+            <tr>
+                <td>供電</td>
+                <td>DC12V（350mA）</td>
+                <td>DC12V（300mA）</td>
+                <td>DC12V（500mA）</td>
+                <td>DC12V（400mA）</td>
+                <td>DC12V（300mA）/DC5V（500mA）</td>
                 <td>DC5V（500mA）</td>
+                <td>DC12V（300mA）/DC5V（500mA）</td>
+                <td>DC5V（400mA）</td>
+                <td>DC12V（1000mA）</td>
+                <td>DC12V（1000mA）</td>
+                <td>DC5V（500mA）</td>
+            </tr>
+            <!-- 通訊 -->
+            <tr>
+                <td>通訊</td>
+                <td>CAN/CAN-FD/TTL</td>
+                <td>CAN/CAN-FD/TTL</td>
+                <td>CAN/RS485/RS422/TTL</td>
+                <td>CAN/CAN-FD/TTL</td>
+                <td>CAN/TTL/RS485/RS422</td>
+                <td>TTL/RS485/RS422</td>
+                <td>CAN/TTL/RS485/RS422</td>
+                <td>TTL/RS485/RS422</td>
+                <td>RJ45/RS485/RS422/TTL</td>
+                <td>RJ45/RS485/RS422/TTL</td>
                 <td>TTL/RS485/RS422/RS232</td>
+            </tr>
+            <!-- 工作頻率 -->
+            <tr>
+                <td>工作頻率</td>
+                <td>76~81GHz</td>
+                <td>76~81GHz</td>
+                <td>76~81GHz</td>
+                <td>76~81GHz</td>
                 <td>79~81GHz/60~64GHz</td>
+                <td>79~81GHz/60~64GHz</td>
+                <td>79~81GHz/60~64GHz</td>
+                <td>60~64GHz</td>
+                <td>79~81GHz/60~64GHz</td>
+                <td>76~81GHz/60~64GHz</td>
+                <td>79~81GHz/60~64GHz</td>
+            </tr>
+            <!-- 最小分辨率 -->
+            <tr>
+                <td>最小分辨率</td>
                 <td>0.02m</td>
+                <td>0.02m</td>
+                <td>0.02m</td>
+                <td>0.02m</td>
+                <td>0.02m</td>
+                <td>0.02m</td>
+                <td>0.02m</td>
+                <td>0.02m</td>
+                <td>0.05m</td>
+                <td>0.03m</td>
+                <td>0.02m</td>
+            </tr>
+            <!-- 視場角 -->
+            <tr>
+                <td>視場角</td>
+                <td>方位向±60°，俯仰向±10°</td>
+                <td>方位向±60°，俯仰向±10°</td>
+                <td>方位向±60°，俯仰向±10°</td>
+                <td>方位向±60°，俯仰向±10°</td>
+                <td>方位向±60°，俯仰向±15°</td>
+                <td>方位向±60°，俯仰向±18°</td>
+                <td>方位向±60°，俯仰向±10°</td>
+                <td>方位向±60°，俯仰向±26°</td>
+                <td>方位向±60°，俯仰向±5°</td>
+                <td>方位向±60°，俯仰向±5°</td>
                 <td>方位向±60°，俯仰向±30°</td>
+            </tr>
+            <!-- 可同時追蹤目標數 -->
+            <tr>
+                <td>可同時追蹤目標數</td>
+                <td>24</td>
+                <td>24</td>
+                <td>24</td>
+                <td>24</td>
+                <td>24</td>
+                <td>24</td>
+                <td>24</td>
+                <td>24</td>
+                <td>256</td>
+                <td>256</td>
                 <td>10</td>
+            </tr>
+            <!-- 功能特點 -->
+            <tr>
+                <td>功能特點</td>
+                <td>目標跟蹤軌跡(目標散射點雲，40m內可輸出目標高度數據）</td>
                 <td>目標跟蹤軌跡（目標散射點雲）</td>
+                <td>目標跟蹤軌跡(目標散射點雲，40m內可輸出目標高度數據）</td>
+                <td>目標跟蹤軌跡(目標散射點雲，40m內可輸出目標高度數據）</td>
+                <td>目標跟蹤軌跡（目標散射點雲）</td>
+                <td>目標跟蹤軌跡（目標散射點雲）</td>
+                <td>目標跟蹤軌跡（目標散射點雲）</td>
+                <td>目標跟蹤軌跡（目標散射點雲）</td>
+                <td>目標跟蹤軌跡（目標散射點雲）</td>
+                <td>目標跟蹤軌跡（目標散射點雲）</td>
+                <td>目標跟蹤軌跡（目標散射點雲）</td>
+            </tr>
+            <!-- 防護等級 -->
+            <tr>
+                <td>防護等級</td>
+                <td>IP67</td>
+                <td>IP67</td>
+                <td></td>
+                <td>IP67</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>IP67</td>
+                <td>IP67</td>
                 <td></td>
             </tr>
         </tbody>
     </table>
 </section>
 
-<div id="footer-placeholder"></div>
-
 <script>
-    function loadHTML(elementId, url) {
-        fetch(url)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById(elementId).innerHTML = data;
-            });
-    }
-
-    loadHTML('header-placeholder', 'header.html');
-    loadHTML('footer-placeholder', 'footer.html');
-
-    // 追蹤當前排序狀態
-    let currentSort = {
-        column: -1,
-        asc: true
-    };
-
-    function sortTable(columnIndex) {
-        const table = document.getElementById("radarTable");
-        const tbody = table.getElementsByTagName("tbody")[0];
-        const rows = Array.from(tbody.getElementsByTagName("tr"));
-        const headers = table.getElementsByTagName("th");
-
-        // 更新排序方向
-        if (currentSort.column === columnIndex) {
-            currentSort.asc = !currentSort.asc;
-        } else {
-            currentSort.asc = true;
-        }
-        currentSort.column = columnIndex;
-
-        // 更新表頭樣式
-        for (let header of headers) {
-            header.classList.remove('asc', 'desc');
-        }
-        headers[columnIndex].classList.add(currentSort.asc ? 'asc' : 'desc');
-
-        // 排序函數
-        function getValue(row, index) {
-            const cell = row.cells[index].textContent.trim();
-            
-            // 處理數值型別（例如重量和量測範圍）
-            if (index === 2) { // 重量
-                return parseFloat(cell.replace(/[^\d.]/g, '')) || 0;
-            }
-            if (index === 3) { // 量測範圍
-                const range = cell.split('~');
-                return parseFloat(range[1]) || 0;
-            }
-            if (index === 10) { // 通道數
-                return parseInt(cell) || 0;
-            }
-            
-            // 其他欄位按字串處理
-            return cell;
-        }
-
-        // 執行排序
-        rows.sort((a, b) => {
-            const valueA = getValue(a, columnIndex);
-            const valueB = getValue(b, columnIndex);
-
-            if (typeof valueA === 'number' && typeof valueB === 'number') {
-                return currentSort.asc ? valueA - valueB : valueB - valueA;
-            } else {
-                return currentSort.asc 
-                    ? String(valueA).localeCompare(String(valueB), 'zh-TW')
-                    : String(valueB).localeCompare(String(valueA), 'zh-TW');
-            }
-        });
-
-        // 重新插入排序後的行
-        rows.forEach(row => tbody.appendChild(row));
-    }
+    // 可以在這裡加上表格排序或其他互動功能
 </script>
+
+<footer style="text-align: left;">
+    <p style="font-weight: bold; font-size: x-large;">聯繫我們</p>
+    <p>地址：台北市士林區中正路495號14樓</p>
+    <p>電話：+886 935548787</p>
+    <p>Email：samuel763@gmail.com</p>
+</footer>
+
 </body>
 </html>
