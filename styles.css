@@ -608,3 +608,29 @@ body {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 }
+
+/* 針對「詳細資訊表格」的樣式 */
+#radarDetailsTable {
+    margin-top: 60px; /* 表格與頁面頂部的距離 */
+    border-collapse: collapse; /* 合併表格邊框 */
+    width: 100%; /* 表格寬度填滿頁面 */
+}
+#radarDetailsTable th, #radarDetailsTable td {
+    border: 1px solid #ddd; /* 單元格邊框 */
+    padding: 8px; /* 單元格內邊距 */
+    text-align: center; /* 文字居中 */
+}
+#radarDetailsTable th {
+    background-color: #eaeaea; /* 表頭背景色 */
+    position: sticky; /* 固定表頭位置 */
+    top: 75px; /* 表頭固定高度 */
+    z-index: 2; /* 確保表頭顯示在最上層 */
+}
+/* 第一行的單元格固定樣式 */
+#radarDetailsTable tbody tr:first-child td {
+    position: sticky;
+    top: 75px; /* 表頭高度 + 第一行高度 */
+    z-index: 1; /* 優先於其他內容 */
+    background-color: white; /* 背景色保持一致 */
+    box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1); /* 輕微陰影分隔 */
+}
